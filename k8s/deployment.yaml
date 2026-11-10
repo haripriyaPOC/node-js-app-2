@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: employee-service
+  name: employee-services
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: employee-service
+      app: employee-services
   template:
     metadata:
       labels:
-        app: employee-service
+        app: employee-services
     spec:
       containers:
         - name: employee-service
-          image: YOUR_DOCKERHUB_USERNAME/employee-service:1.0.0
+          image: haripriya1310/nodejs2-backend:v1
           ports:
             - containerPort: 3000
           readinessProbe:
@@ -29,11 +29,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: employee-service
+  name: employee-services
 spec:
   selector:
-    app: employee-service
+    app: employee-services
   ports:
     - port: 80
       targetPort: 3000
-  type: ClusterIP
+  type: NodePort
